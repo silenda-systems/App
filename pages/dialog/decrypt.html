@@ -1,0 +1,35 @@
+<html window-frame="transparent" state="hidden">
+  <head>
+    <style>
+      @import url(../style/dialog.css);
+    </style>
+    <script type="text/tiscript">
+      event click $(#close-dialog)
+      {
+        view.close(false);
+      }
+      event click $(#confirm-dialog)
+      {
+        view.close(true);
+      }
+      function self.ready() {
+        self#title.text = view.parameters.title
+        self#description.text = view.parameters.description
+        if( view.parameters.icon) self#icon.attributes["src"] = 'img/' + view.parameters.icon + '.svg'
+        else  self#icon.attributes["class"] = "hidden";
+        if( view.parameters.file) self#file.text = 'file ' + view.parameters.file
+        else self#fileRow.attributes["class"] = "hidden";
+      }
+    </script>
+  </head>
+  <body>
+    <img #icon class="icon" src="" alt="" />
+    <div #title class="title"></div>
+    <div #description class="description"></div>
+    <div #filerow class="file-row">File <span #file></span></div>
+    <div class="btn-row">
+      <button class="btn default mr" id="close-dialog">Close</button>
+      <button class="btn bg" id="confirm-dialog">OK</button>
+    </div>
+  </body>
+</html>

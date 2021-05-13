@@ -1,0 +1,27 @@
+<html>
+  <head>
+    <title>Error</title>
+    <style>
+      html {
+        font: system;
+        width: max-content;
+        height: max-content;
+        overflow: visible;
+        background: window;
+      }
+    </style>
+    <script type="text/tiscript">
+      function self.ready() {
+       self#err.text = view.parameters;
+      }
+          event click $(#close-dialog)
+      {
+          view.close(true);
+      }
+    </script>
+  </head>
+  <body>
+    <h1 #err>Decrypt file</h1>
+    <button id="close-dialog">GO</button>
+  </body>
+</html>

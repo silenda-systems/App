@@ -1,0 +1,86 @@
+fileList {
+  display: block;
+
+  height: *;
+  width: *;
+  overflow: auto;
+  prototype: FileList url(../scripts/fileList.tis);
+}
+fileList img {
+  height: 22px;
+}
+
+fileList .type {
+  margin-right: 10px;
+}
+fileList > li .left {
+  flow: horizontal;
+}
+fileList > li:last-child {
+  margin-bottom: 14px;
+}
+fileList > li {
+  border-radius: 4px;
+  flow: horizontal;
+  border-spacing: *;
+  padding: 16px 14px;
+  margin-top: 0;
+  margin-bottom: 5px;
+  margin-left: 14px;
+  margin-right: calc(100% - 100vw + 14px);
+  background-color: #ffffff;
+  font-size: 14px;
+  font-weight: 500;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: 22px;
+  letter-spacing: normal;
+  text-align: left;
+  color: #232020;
+  cursor: pointer;
+}
+.trunc {
+  /* overflow: hidden; */
+  overflow-x: hidden;
+  position: relative;
+  display: inline-block;
+  text-decoration: none;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.crumbs {
+  max-width: 100%;
+  padding: 0 14px;
+  overflow-x: hidden;
+  position: relative;
+  display: inline-block;
+  text-decoration: none;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  margin-bottom: 10px;
+  font-size: 14px;
+  font-weight: 500;
+  color: rgba(0, 0, 0, 0.5);
+}
+.crumbs span {
+  margin-right: -5px;
+}
+.hidden {
+  display: none;
+}
+.crop-file {
+  color: #232020;
+  max-width: 60%;
+  margin-left: -2px;
+}
+
+fileList > li:hover {
+  background-color: #4d4b4c !important;
+  color: #ffffff;
+}
+
+fileList > li:current {
+  background-color: #8f8f8f;
+  color: #ffffff;
+}

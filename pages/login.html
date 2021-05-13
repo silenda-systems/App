@@ -1,0 +1,123 @@
+<html>
+  <head>
+    <!--<title>Would be set from goLang code</title>-->
+    <style>
+      @import url(style/main.css);
+      .logotype {
+        width: 128px;
+        margin-bottom: 20px;
+        margin-left: *;
+        margin-right: *;
+      }
+      h1, .description {
+        width: 210px;
+      }
+      .description {
+        margin-bottom: 28px;
+      }
+      h1 {
+        margin-bottom: 40px;
+      }
+
+      .container {
+        margin-top: 35px;
+      }
+    </style>
+    <script type="text/tiscript">
+
+      function send(){
+        var status = view.login(self#pass.value)
+       if(!status.err)  {load('files.html')}
+        else self#err.text = status.err[0].toUpperCase() + status.err.slice(1);
+      }
+      event click $(#send) {
+        send()
+      }
+      self#pass.onKey = function(evt) {
+        if( evt.type == Event.KEY_DOWN )
+        {
+          if (evt.keyCode ===  Event.VK_RETURN) send()
+        }
+      }
+      event click $(#showPass) {
+          var old = self#pass.value;
+          self#pass.attributes["type"] = "password";
+          self#showPass.attributes["class"] = "";
+          self#hidePass.attributes["class"] = "active";
+          self#pass.value = old;
+      }
+
+      event click $(#hidePass) {
+          var old = self#pass.value;
+          self#pass.attributes["type"] = "text";
+          self#showPass.attributes["class"] = "active";
+          self#hidePass.attributes["class"] = "";
+          self#pass.value = old;
+      }
+       function self.ready() {
+        $(#pass).state.focus = true;
+      }
+    </script>
+  </head>
+  <body>
+    <div class="global-wrap">
+      <div class="container">
+        <h1 id="text">Welcome to Silenda App!</h1>
+        <div class="description center">
+          Enter your password to open the application.
+        </div>
+        <img src="img/logotype.svg" class="logotype" />
+        <div class="pass-row">
+          <div class="label">Enter password</div>
+          <div class="row">
+            <input|password .input #pass />
+            <div class="svg-wrap">
+              <svg
+                id="showPass"
+                xmlns="http://www.w3.org/2000/svg"
+                width="19"
+                height="18"
+                fill="none"
+                viewBox="0 0 19 18"
+              >
+                <path
+                  fill="#615F5F"
+                  d="M9 3C5.03 3 1.608 5.388.036 8.834c-.048.104-.048.226 0 .332C1.608 12.612 5.03 15 9 15c3.97 0 7.392-2.388 8.964-5.834.048-.104.048-.226 0-.332C16.392 5.388 12.97 3 9 3zm0 10.14c-2.242 0-4.057-1.854-4.057-4.139 0-2.287 1.817-4.14 4.057-4.14 2.242 0 4.057 1.855 4.057 4.14 0 2.285-1.817 4.14-4.057 4.14z"
+                />
+                <path
+                  fill="#615F5F"
+                  d="M9 12c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3z"
+                />
+                <path
+                  stroke="#615F5F"
+                  stroke-width="2"
+                  d="M17.707 0.707L1.444 16.971"
+                />
+              </svg>
+              <svg
+                class="active"
+                id="hidePass"
+                xmlns="http://www.w3.org/2000/svg"
+                width="18"
+                height="12"
+                fill="none"
+                viewBox="0 0 18 12"
+              >
+                <path
+                  fill="#615F5F"
+                  d="M9 0C5.03 0 1.608 2.388.036 5.834c-.048.104-.048.226 0 .332C1.608 9.612 5.03 12 9 12c3.97 0 7.392-2.388 8.964-5.834.048-.104.048-.226 0-.332C16.392 2.388 12.97 0 9 0zm0 10.14c-2.242 0-4.057-1.854-4.057-4.139 0-2.287 1.817-4.14 4.057-4.14 2.242 0 4.057 1.855 4.057 4.14 0 2.285-1.817 4.14-4.057 4.14z"
+                />
+                <path
+                  fill="#615F5F"
+                  d="M9 9c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3z"
+                />
+              </svg>
+            </div>
+          </div>
+          <div #err class="error"></div>
+        </div>
+      </div>
+    </div>
+    <div id="send" class="btn">Continue</div>
+  </body>
+</html>

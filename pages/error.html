@@ -1,0 +1,48 @@
+<html>
+  <head>
+    <style>
+      @import url(style/main.css);
+      .global-wrap {
+        flow: vertical;
+        vertical-align: center;
+        height: 100vh;
+      }
+      .container {
+        margin-top: *;
+        margin-bottom: *;
+      }
+      h1 {
+        margin-bottom: 15px;
+        color: #ffa34d;
+      }
+      .logotype {
+        width: 40px;
+        margin-bottom: 15px;
+        margin-left: *;
+        margin-right: *;
+      }
+      .description {
+        width: 100%;
+      }
+    </style>
+    <script type="text/tiscript">
+      event click $(#next) {
+       view.close()
+      }
+      function self.ready() {
+
+         self#description.text = globalError();
+      }
+    </script>
+  </head>
+  <body>
+    <div class="global-wrap">
+      <div class="container">
+        <img src="img/err.svg" alt="" class="logotype" />
+        <h1>An error occurred!</h1>
+        <div #description class="center description"></div>
+      </div>
+    </div>
+    <div #next class="btn">Close application</div>
+  </body>
+</html>

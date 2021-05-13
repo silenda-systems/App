@@ -1,0 +1,126 @@
+/* @font-face {
+  font-family: Roboto;
+  src: url(fonts/Roboto-Regular.ttf);
+}
+
+@font-face {
+  font-family: Roboto;
+  font-weight: bold;
+  src: url(fonts/Roboto-Bold.ttf);
+} */
+
+html {
+  font-family: "Roboto", -apple-system, "Segoe UI", "Ubuntu", system, sans-serif;
+  width: 300px;
+  height: auto;
+  overflow: hiden;
+  background-color: #ffffff;
+  padding: 24px;
+  word-spacing: 1px;
+  box-sizing: border-box;
+  overflow-x: hidden;
+  font-weight: normal;
+  font-style: normal;
+  font-stretch: normal;
+  letter-spacing: normal;
+  border: 1px solid rgba(0, 0, 0, 0.16);
+  /* color: #000000; */
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+}
+
+.hidden {
+  display: none;
+}
+
+.top-row {
+  margin-bottom: 24px;
+  flow: horizontal;
+  vertical-align: middle;
+}
+
+.icon {
+  width: 40px;
+  margin-right: 10px;
+}
+
+.title {
+  font-size: 19px;
+  font-weight: 900;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: 1.26;
+  letter-spacing: normal;
+  text-align: left;
+  color: #000000;
+}
+
+.file-name {
+  color: #ffa34d;
+  max-width: 170px;
+  overflow-x: hidden;
+  position: relative;
+  display: inline-block;
+  text-decoration: none;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.description {
+  font-size: 16px;
+  font-weight: 500;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: 1.31;
+  letter-spacing: normal;
+  text-align: left;
+  color: #000000;
+}
+
+.btn-row {
+  margin-top: 24px;
+  width: 100%;
+  /* border: 1px solid red; */
+}
+
+button.btn {
+  line-height: 40px !important;
+  height: 40px;
+  width: calc(50% - 32px);
+  font-size: 14px;
+  font-weight: 900;
+  font-stretch: normal;
+  font-style: normal;
+  letter-spacing: normal;
+  text-align: center;
+  font-family: Roboto, system, sans-serif;
+  text-decoration: none;
+  display: inline-block;
+  cursor: pointer;
+}
+
+button.default:hover {
+  border: solid 1px #232020 !important;
+  background-color: #232020 !important;
+  background: #232020 !important;
+  color: #ffffff !important;
+  outline: none !important;
+}
+
+button.default:focus {
+  border: solid 1px #232020 !important;
+}
+
+button.default {
+  border: solid 1px #d3d8e0 !important;
+  color: #8a8c8f !important;
+  background: #ffffff !important;
+  outline: none !important;
+}
+
+.mr {
+  margin-right: 8px;
+}

@@ -1,0 +1,87 @@
+<html window-icon="img/32.png">
+  <head>
+    <script type="text/tiscript">
+      var gErr = ''
+      function load(path) {
+          $(frame#content).load(path);
+      }
+
+      function globalError () {
+        return gErr
+      }
+
+      function checkErrorGlobal (obj) {
+
+          if (obj.err) {
+              gErr = obj.err[0].toUpperCase() + obj.err.slice(1);
+              load('error.html')
+            return null
+         }
+         else return obj.val
+
+      }
+
+      function checkError(obj) {
+
+
+         if (obj.err) {
+            var params = {
+              url: self.url("popup.html"),
+              alignment: -5,
+              parameters: {
+                icon: 'err',
+                title: 'Error',
+                description: obj.err[0].toUpperCase() + obj.err.slice(1);
+              }
+            };
+            var action = view.dialog(params);
+            return null
+         }
+         else return obj.val
+      }
+
+      function self.ready() {
+         var hasUSB = view.hasUSB()
+         var hasPerm = view.hasPerm()
+
+          if(!checkErrorGlobal(hasPerm)) {
+            return true
+          }
+
+          if(!checkErrorGlobal(hasUSB)) {
+            return true
+          }
+
+
+          var next = "login.html"
+
+          if (!checkErrorGlobal(view.appReady())) {
+              next = "welcome.html"
+          }
+
+
+          load(next)
+
+      }
+    </script>
+    <style>
+      @import url(style/main.css);
+
+      html,
+      body {
+        font-family: Roboto, system, sans-serif;
+        word-spacing: 1px;
+        box-sizing: border-box;
+        overflow-x: hidden;
+        font-weight: normal;
+        font-style: normal;
+        font-stretch: normal;
+        letter-spacing: normal;
+        color: #615f5f;
+      }
+    </style>
+  </head>
+  <body>
+    <frame#content />
+  </body>
+</html>

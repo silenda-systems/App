@@ -1,0 +1,225 @@
+<html>
+  <head>
+    <title></title>
+    <style>
+      @import url(style/fileList.css);
+      @import url(style/main.css);
+
+      .header img {
+        width: 16px;
+        height: 16px;
+        cursor: pointer;
+      }
+      .header h1 {
+        width: 100px;
+        text-align: center;
+        margin: 0 !important;
+      }
+      .header {
+        width: 100%;
+        height: 31px;
+        padding: 0 14px;
+        margin: 14px 0 10px;
+        flow: horizontal;
+        border-spacing: *;
+        vertical-align: middle;
+      }
+    </style>
+    <script type="text/tiscript">
+      var baseDir = ''
+
+      var vlist = $(fileList)
+
+      vlist << event change() {
+        var item = this.records[this.currentIndex]
+        if(item.type == 'back') {
+          back()
+        }
+        else if(item.type == 'open') {
+          open()
+        }
+        else if(item.type == 'folder'){
+           // errrrr
+          var response = view.buildPath(baseDir, item.caption);
+          var target = checkError(response)
+          if(target) {
+            baseDir = target
+            setRecord(target)
+          }
+        } else {
+          var title = 'Encrypt file'
+          var description = 'Are you sure you want to encrypt this file '
+          var isEncrypt = !item.crypt
+          if(!isEncrypt) {
+            title = 'Decrypt file'
+            description = 'Are you sure you want to decrypt this file '
+          }
+          var params = {
+              url: self.url("popup.html"),
+              alignment: -5,
+              parameters: {
+                icon: 'info',
+                title: title,
+                description: description,
+                file: item.caption
+              }
+            };
+          var action = view.dialog(params);
+
+          if(action) {
+             // errrrr
+
+            if(isEncrypt) checkError( view.encodeFile(baseDir, item.origName))
+            else  checkError(view.decodeFile(baseDir, item.origName))
+          }
+
+          setRecord(baseDir)
+        }
+      }
+
+      vlist << event back() {
+         back()
+      }
+      event click $(#settings) {
+       load('password-set.html')
+      }
+      function open(){
+         // errrrr
+        var folder = view.selectFolder("",  getBase());
+        if(folder) {
+          baseDir = folder
+          setRecord(folder)
+        }
+      }
+
+      function back(){
+        // errrrr
+        var parent = checkError(view.parentDir(baseDir))
+
+       if(parent) {
+          baseDir = parent
+          setRecord(parent)
+        }
+      }
+
+      event click $(#update) {
+        setRecord(baseDir)
+      }
+      function generatePath(path) {
+
+      try {
+        var separator = checkErrorGlobal(view.pathSeparator())
+        if(path.substr(0, 7) === 'file://') {
+          path = path.splice(0, 7)
+          path = path.replace('%20', ' ')
+          separator = '\/'
+        }
+        var pathArr = path.split(separator)
+        var first = pathArr[0] + '\/'
+        pathArr.shift()
+        separator = '\/'
+        var mid = ''
+        var len = path.length
+        var last = ''
+
+        if(pathArr.length) {
+          last = pathArr[pathArr.length - 1]
+          pathArr.pop()
+        }
+
+        if (len > 30) {
+          mid = '...' +  separator
+        }else{
+          for (var i in pathArr) {
+            mid += i + separator
+          }
+        }
+
+        self#first.text = first + mid
+        self#last.text = last
+        } catch(e) {
+          self#first.text = '\u00A0'
+          self#last.text = '\u00A0'
+        }
+      }
+
+      function setRecord(path) {
+        var records = [];
+        var data = checkError(view.listDir(path))
+        var iterator = 2
+        var filesArr = []
+        if (!data) {
+           back()
+           return true
+        }
+        generatePath(baseDir)
+        records.push { img: "img/open.svg", index: 0, caption: 'Open Directory', crypt:"", type: 'open'};
+        records.push { img: "img/back.svg", index: 1, caption: '/..', crypt:"", type: 'back'};
+
+
+        for (var i in data.dirs) {
+          records.push { img: "img/folder.svg", index: iterator, caption: i, crypt:"", type: 'folder'};
+          iterator++
+        }
+        for (var i in data.files) {
+          var tmpObj =  { img: "img/file.svg", index: 0, caption: i, crypt:"", type: 'file', origName: i}
+          if (i.substr(-3) === '.sl'){
+            // errrrr
+            var decodeName = view.decodeFileName(baseDir, i).val
+            if(decodeName) {
+              tmpObj.caption = decodeName
+              tmpObj.crypt = 'img/lock.svg'
+            }
+          }
+
+          filesArr.push(tmpObj);
+        }
+
+        filesArr.sort(function (a, b) {
+          if (a.caption > b.caption) {
+            return 1;
+          }
+          if (a.caption < b.caption) {
+            return -1;
+          }
+            return 0;
+        });
+        for (var i = 0; i < filesArr.length; i++) {
+          filesArr[i].index = iterator
+          iterator++
+        }
+
+        vlist.records = records.concat(filesArr)
+      }
+
+      function getBase() {
+        return checkErrorGlobal(view.baseVol()) || checkErrorGlobal(view.baseDir())
+      }
+
+      function self.ready() {
+        baseDir = getBase()
+        setRecord(baseDir)
+      }
+    </script>
+  </head>
+  <body>
+    <div class="header">
+      <img #update src="img/refresh.svg" alt="" />
+      <h1>Files</h1>
+      <img #settings src="img/vector.svg" alt="" />
+    </div>
+    <div class="crumbs">
+      <span #first></span>
+      <span class="crop-file trunc" #last></span>
+    </div>
+    <fileList>
+      <li>
+        <div class="left">
+          <img class="type" name="img" />
+          <div class="trunc" name="caption" />
+        </div>
+        <img name="crypt" />
+      </li>
+    </fileList>
+  </body>
+</html>

@@ -1,0 +1,39 @@
+<html>
+  <head>
+    <style>
+      @import url(style/main.css);
+      .global-wrap {
+        flow: vertical;
+        vertical-align: center;
+        height: 100vh;
+      }
+      .container {
+        margin-top: *;
+        margin-bottom: *;
+      }
+      h1 {
+        margin-bottom: 40px;
+      }
+      .description {
+        width: 100%;
+      }
+    </style>
+    <script type="text/tiscript">
+      event click $(#next) {
+       load('password-set.html')
+      }
+    </script>
+  </head>
+  <body>
+    <div class="global-wrap">
+      <div class="container">
+        <h1>Welcome to Silenda App!</h1>
+        <div class="center description">
+          Dear user, please read the instructions for a better understanding of
+          the app functions.
+        </div>
+      </div>
+    </div>
+    <div #next class="btn">Continue</div>
+  </body>
+</html>
